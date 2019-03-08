@@ -1,0 +1,19 @@
+# importing libraries
+import os
+import json
+import requests
+
+# API function
+def parse_data(symbol):
+    api_key = os.environ.get("MY_CMC_API_KEY")
+    params = {"symbol": symbol}    
+    headers = {"X-CMC_PRO_API_KEY": api_key}
+    url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"    
+    resp = requests.get(url, params = params, headers= headers)  
+    return resp.json()
+	
+# calling the function with symbol OMG
+results = parse_data("OMG")
+
+# printing results in JOSN format
+print(json.dumps(results, indent=2))	

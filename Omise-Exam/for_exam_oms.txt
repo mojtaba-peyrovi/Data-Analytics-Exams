@@ -1,0 +1,11 @@
+#standardsql
+SELECT DATE(request_time) access_day,
+       IFNULL(country_name, 'UNKNOWN-COUNTRY') country,  
+       COUNT(request_method) access_count
+FROM `ad_hoc_projects.access_log` one
+       LEFT JOIN ad_hoc_projects.customer_country two          
+       ON one.customer_id = two.customer_id
+WHERE 1=1 
+AND DATE(request_time) IS NOT NULL
+GROUP BY 1,2
+ORDER BY 1,3 DESC
